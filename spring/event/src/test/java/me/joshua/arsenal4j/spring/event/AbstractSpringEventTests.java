@@ -1,6 +1,6 @@
 package me.joshua.arsenal4j.spring.event;
 
-import me.joshua.arsenal4j.spring.test.AbstractSpringJUnit4Tests;
+import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
 
 import org.springframework.test.context.ContextConfiguration;
 

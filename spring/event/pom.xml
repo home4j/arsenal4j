@@ -10,10 +10,6 @@
 	</parent>
 
 	<artifactId>spring.event</artifactId>
-	<name>arsenal4j.${project.artifactId}</name>
+	<name>${project.artifactId}</name>
 
-	<properties>
-	</properties>
-
-	<dependencies></dependencies>
 </project>
