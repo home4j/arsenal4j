@@ -15,7 +15,6 @@
 		<deps.log4j2.version>2.4</deps.log4j2.version>
 		<deps.hibernate.version>5.0.3.Final</deps.hibernate.version>
 		<deps.spring.version>4.2.2.RELEASE</deps.spring.version>
-		<!-- <m2e.jpa.activation>false</m2e.jpa.activation> -->
 	</properties>
 
 	<modules>
@@ -129,6 +128,16 @@
 
 			<dependency>
 				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${deps.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${deps.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>${deps.spring.version}</version>
 			</dependency>
@@ -145,6 +154,16 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-jdbc</artifactId>
+				<version>${deps.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${deps.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
 				<version>${deps.spring.version}</version>
 			</dependency>
 			<dependency>
