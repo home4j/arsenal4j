@@ -1,5 +1,8 @@
 package me.joshua.arsenal4j.spring.dal.jpa.domain;
 
+import static me.joshua.arsenal4j.spring.dal.jpa.commons.SpecificationUtils.and;
+import static me.joshua.arsenal4j.spring.dal.jpa.commons.SpecificationUtils.appendWildcard;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -33,33 +35,5 @@ public class ProductSpecs {
 				return and(cb, pList);
 			}
 		};
-	}
-
-	private static final Predicate[] EMPTY_PREDICATE_ARRAY = new Predicate[0];
-
-	private static Predicate and(CriteriaBuilder cb, List<Predicate> predicates) {
-		if (CollectionUtils.isEmpty(predicates)) {
-			return null;
-		} else if (predicates.size() == 1) {
-			return predicates.get(0);
-		} else {
-			return cb.and(predicates.toArray(EMPTY_PREDICATE_ARRAY));
-		}
-	}
-
-	public static final String WILDCARD_CHAR = "%";
-
-	@SuppressWarnings("unused")
-	private static final String appendLeftWildcard(String param) {
-		return WILDCARD_CHAR + param;
-	}
-
-	@SuppressWarnings("unused")
-	private static final String appendRightWildcard(String param) {
-		return param + WILDCARD_CHAR;
-	}
-
-	private static final String appendWildcard(String param) {
-		return WILDCARD_CHAR + param + WILDCARD_CHAR;
 	}
 }

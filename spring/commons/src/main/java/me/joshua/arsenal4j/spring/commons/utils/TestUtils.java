@@ -2,7 +2,7 @@ package me.joshua.arsenal4j.spring.commons.utils;
 
 import java.util.Collection;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 public class TestUtils {
 

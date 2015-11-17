@@ -14,11 +14,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<deps.log4j2.version>2.4</deps.log4j2.version>
 		<deps.hibernate.version>5.0.3.Final</deps.hibernate.version>
-		<deps.spring.version>4.2.2.RELEASE</deps.spring.version>
+		<deps.spring.version>4.2.3.RELEASE</deps.spring.version>
 	</properties>
 
 	<modules>
 		<module>spring</module>
+		<module>spring/aop</module>
 		<module>spring/commons</module>
 		<module>spring/dal/jpa</module>
 		<module>spring/dal/mybatis</module>
@@ -27,14 +28,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -69,7 +70,7 @@
 			<dependency>
 				<groupId>commons-collections</groupId>
 				<artifactId>commons-collections</artifactId>
-				<version>3.2.1</version>
+				<version>3.2.2</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-io</groupId>
@@ -78,11 +79,22 @@
 			</dependency>
 
 			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>1.1.0.Final</version>
+			</dependency>
+
+			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>1.4.190</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>4.0</version>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
@@ -105,6 +117,12 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.8.7</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>${deps.hibernate.version}</version>
@@ -114,6 +132,12 @@
 				<artifactId>hibernate-jpamodelgen</artifactId>
 				<version>${deps.hibernate.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>5.2.2.Final</version>
+			</dependency>
+
 
 			<dependency>
 				<groupId>org.mybatis</groupId>
@@ -177,6 +201,12 @@
 				<artifactId>junit</artifactId>
 				<version>4.12</version>
 				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>org.hamcrest</groupId>
+						<artifactId>hamcrest-core</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>
