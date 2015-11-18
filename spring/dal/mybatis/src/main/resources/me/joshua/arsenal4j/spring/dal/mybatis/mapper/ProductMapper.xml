@@ -9,48 +9,38 @@
 	</resultMap>
 
 	<sql id="allColumns">
-		<include refid="Base.baseColumns" />
-		,
+		<include refid="Base.baseColumns" />,
 		<include refid="bizColumns" />
 	</sql>
-
 
 	<sql id="bizColumns">
 		name, descn
 	</sql>
 
 	<select id="findById" resultMap="Product">
-		SELECT
-		<include refid="allColumns" />
-		FROM product WHERE
-		id = #{id}
+		SELECT <include refid="allColumns" />
+		FROM product
+		WHERE id = #{id}
 	</select>
 
 	<select id="findByName" resultMap="Product">
-		SELECT
-		<include refid="allColumns" />
+		SELECT <include refid="allColumns" />
 		FROM product
-		WHERE
-		name = #{name}
+		WHERE name = #{name}
 	</select>
 
 	<select id="findByDesc" resultMap="Product">
 		<bind name="desc" value="'%' + _parameter.get('desc') + '%'" />
-		SELECT
-		<include refid="allColumns" />
+		SELECT <include refid="allColumns" />
 		FROM product
-		WHERE
-		descn like #{desc}
+		WHERE descn like #{desc}
 	</select>
 
 	<select id="findByDescP" resultMap="Product">
 		<bind name="desc" value="'%' + _parameter.get('desc') + '%'" />
-		SELECT
-		<include refid="allColumns" />
+		SELECT <include refid="allColumns" />
 		FROM product
-		WHERE
-		descn like #{desc}
-		<include refid="Base.page" />
+		WHERE descn like #{desc} <include refid="Base.page" />
 	</select>
 
 	<select id="findByDescO" resultMap="Product">
@@ -58,16 +48,12 @@
 		SELECT
 		<include refid="allColumns" />
 		FROM product
-		WHERE
-		descn like #{desc}
-		<include refid="Base.order" />
+		WHERE descn like #{desc} <include refid="Base.order" />
 	</select>
 
 	<insert id="create" parameterType="Product" useGeneratedKeys="true"
 		keyProperty="id">
-		insert into Product (
-		<include refid="bizColumns" />
-		, version)
+		insert into Product (<include refid="bizColumns" />, version)
 		values (#{description}, #{name}, #{version})
 	</insert>
 
@@ -77,7 +63,7 @@
 			<include refid="Base.setVersion" />
 			name = #{name}, descn = #{description}
 		</set>
-		<include refid="Base.whereVersion"></include>
+		<include refid="Base.whereVersion" />
 	</update>
 
 	<update id="partialUpdate" parameterType="Product">
@@ -88,7 +74,7 @@
 			<if test="null != description">descn = #{description},</if>
 			<!-- set最后一行的“,”可以省略，set标签会自动去除，不过为避免Bug，建议保留 -->
 		</set>
-		<include refid="Base.whereVersion"></include>
+		<include refid="Base.whereVersion" />
 	</update>
 
 </mapper>

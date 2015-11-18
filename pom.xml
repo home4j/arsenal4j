@@ -21,6 +21,7 @@
 		<module>spring</module>
 		<module>spring/aop</module>
 		<module>spring/commons</module>
+		<module>spring/dal/jdbc</module>
 		<module>spring/dal/jpa</module>
 		<module>spring/dal/mybatis</module>
 		<module>spring/event</module>
@@ -88,6 +89,11 @@
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>1.4.190</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.37</version>
 			</dependency>
 
 			<dependency>
