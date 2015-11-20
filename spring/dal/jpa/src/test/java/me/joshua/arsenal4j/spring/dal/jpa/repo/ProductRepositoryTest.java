@@ -29,11 +29,6 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 	@Test
 	public void testSave() {
 		Product product = new Product("test", "desc");
-		try {
-			throw new RuntimeException();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		productRepository.save(product);
 		Assert.assertNotNull(product.getId());
 	}
