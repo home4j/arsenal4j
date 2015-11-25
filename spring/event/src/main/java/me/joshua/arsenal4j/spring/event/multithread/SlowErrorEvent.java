@@ -1,6 +1,6 @@
 package me.joshua.arsenal4j.spring.event.multithread;
 
-import me.joshua.arsenal4j.spring.commons.utils.TimeUtils;
+import me.joshua.arsenal4j.java.commons.TimeUtils;
 import me.joshua.arsenal4j.spring.event.ErrorEvent;
 
 /**

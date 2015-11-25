@@ -13,7 +13,11 @@
 	<name>${project.artifactId}</name>
 
 	<dependencies>
-		<!-- 此处直接引入Spring，以便在在me.joshua.arsenal4j:spring中被引入 -->
+		<dependency>
+			<groupId>me.joshua.arsenal4j</groupId>
+			<artifactId>java.commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>

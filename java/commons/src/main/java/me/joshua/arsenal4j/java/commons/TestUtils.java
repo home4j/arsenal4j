@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.spring.commons.utils;
+package me.joshua.arsenal4j.java.commons;
 
 import java.util.Collection;
 

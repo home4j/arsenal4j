@@ -3,17 +3,17 @@ package me.joshua.arsenal4j.spring.dal.mybatis.mapper;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
-import me.joshua.arsenal4j.spring.commons.utils.TestUtils;
-import me.joshua.arsenal4j.spring.dal.mybatis.commons.Order;
-import me.joshua.arsenal4j.spring.dal.mybatis.commons.PageRequest;
-import me.joshua.arsenal4j.spring.dal.mybatis.domain.Product;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
+
+import me.joshua.arsenal4j.java.commons.TestUtils;
+import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
+import me.joshua.arsenal4j.spring.dal.mybatis.commons.Order;
+import me.joshua.arsenal4j.spring.dal.mybatis.commons.PageRequest;
+import me.joshua.arsenal4j.spring.dal.mybatis.domain.Product;
 
 @ContextConfiguration("classpath*:spring-mybatis.xml")
 public class ProductMapperTest extends AbstractSpringJUnit4Tests {

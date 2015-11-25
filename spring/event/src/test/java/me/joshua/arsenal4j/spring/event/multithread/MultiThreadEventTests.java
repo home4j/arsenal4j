@@ -2,12 +2,13 @@ package me.joshua.arsenal4j.spring.event.multithread;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import me.joshua.arsenal4j.spring.commons.utils.TimeUtils;
-import me.joshua.arsenal4j.spring.event.ErrorEvent;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+
+import me.joshua.arsenal4j.java.commons.TimeUtils;
+import me.joshua.arsenal4j.spring.event.ErrorEvent;
 
 public class MultiThreadEventTests extends AbstractSpringEventMultiThreadTests {
 
