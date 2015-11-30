@@ -15,21 +15,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSpecs {
-	public static Specification<Product> search(final String name,
-			final String description) {
+	public static Specification<Product> search(final String name, final String description) {
 		return new Specification<Product>() {
 
 			@Override
-			public Predicate toPredicate(Root<Product> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> pList = new LinkedList<Predicate>();
 				if (StringUtils.isNotEmpty(name)) {
-					pList.add(cb.like(root.get(Product_.name),
-							appendWildcard(name)));
+					pList.add(cb.like(root.get(Product_.name), appendWildcard(name)));
 				}
 				if (StringUtils.isNotEmpty(description)) {
-					pList.add(cb.like(root.get(Product_.description),
-							appendWildcard(description)));
+					pList.add(cb.like(root.get(Product_.description), appendWildcard(description)));
 				}
 
 				return and(cb, pList);

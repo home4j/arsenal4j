@@ -1,13 +1,12 @@
 package me.joshua.arsenal4j.spring.event;
 
-import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import me.joshua.arsenal4j.java.commons.BaseObject;
 
-public abstract class AbstractMessageEvent implements Serializable {
+public abstract class AbstractMessageEvent extends BaseObject {
 
-	private static final long serialVersionUID = 5903668667078534825L;
+	private static final long serialVersionUID = 5311708231559122819L;
 
 	protected String message;
 	protected final AtomicInteger count = new AtomicInteger();
@@ -32,11 +31,6 @@ public abstract class AbstractMessageEvent implements Serializable {
 
 	public int getCount() {
 		return count.get();
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

@@ -1,11 +1,8 @@
 package me.joshua.arsenal4j.spring.dal.jdbc;
 
-import java.io.Serializable;
+import me.joshua.arsenal4j.java.commons.BaseObject;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-public class Product implements Serializable {
+public class Product extends BaseObject {
 
 	private static final long serialVersionUID = -7492639752670189553L;
 
@@ -64,12 +61,6 @@ public class Product implements Serializable {
 	 */
 	public void setVersion(Long version) {
 		this.version = version;
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.DEFAULT_STYLE);
 	}
 
 }

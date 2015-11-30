@@ -41,3 +41,6 @@ INSERT INTO product (name, descn, version) VALUES ('FI-SW-237', 'Tiger 3 Shark',
 INSERT INTO product (name, descn, version) VALUES ('FI-SW-238', 'Tiger 2 Shark', 2);
 INSERT INTO product (name, descn, version) VALUES ('FI-SW-239', 'Tiger 1 Shark', 0);
 INSERT INTO product (name, descn, version) VALUES ('FI-SW-240', 'Tiger 0 Shark', 1);
+
+
+INSERT INTO trade_order (id, user_id, descn, version) VALUES (1, 'joshuazhan', 'Hello joshuazhan', 1);

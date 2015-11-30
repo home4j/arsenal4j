@@ -17,29 +17,35 @@ package me.joshua.arsenal4j.spring.dal.jpa.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Version;
-
-import org.springframework.data.domain.Persistable;
 
 import me.joshua.arsenal4j.java.commons.BaseObject;
 
 /**
+ * 在部分分库分表的情况下，所有的SQL都要传入分表字段，这对于查询比较好解决（每次加入该条件即可）。 但在更新时，Spring
+ * Data是不会放入该字段的，所以此处用了一个比较取巧的方法，即把分表字段作为复合主键来配置，这样在更新的时候，都会默认带上该字段了。
+ * 
+ * <p>
+ * 我们
+ * 
+ * @author daonan.zhan
  *
  */
-@Entity
-public class Product extends BaseObject implements Persistable<Long> {
+@Entity(name = "trade_order")
+@IdClass(OrderPk.class)
+public class Order extends BaseObject {
 
-	private static final long serialVersionUID = -7492639752670189553L;
+	private static final long serialVersionUID = 350861902233051905L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "id")
+	private Long rowId;
 
-	@Column(nullable = false, unique = true)
-	private String name;
+	@Id
+	@Column(name = "user_id", nullable = false, unique = true)
+	private String userId;
 
 	@Column(name = "descn")
 	private String description;
@@ -47,31 +53,22 @@ public class Product extends BaseObject implements Persistable<Long> {
 	@Version
 	private Long version;
 
-	public Product() {
+	public Order() {
 	}
 
-	public Product(String name, String description) {
+	public Order(Long rowId, String userId, String description) {
 		super();
-		this.name = name;
+		this.rowId = rowId;
+		this.userId = userId;
 		this.description = description;
-		this.version = 0L;
 	}
 
-	@Override
-	public Long getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getDescription() {
@@ -95,11 +92,6 @@ public class Product extends BaseObject implements Persistable<Long> {
 	 */
 	public void setVersion(Long version) {
 		this.version = version;
-	}
-
-	@Override
-	public boolean isNew() {
-		return null == getId();
 	}
 
 }
