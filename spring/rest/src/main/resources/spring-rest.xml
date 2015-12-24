@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:component-scan base-package="me.joshua.arsenal4j.spring.rest" />
+
+	<!-- 可以对比两者的异同，对于Builder模式的Bean创建，Java Config有着先天的优势，XML的配置过于繁琐 -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<constructor-arg>
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<bean
+						class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+						<property name="targetObject">
+							<bean
+								class="org.springframework.http.converter.json.Jackson2ObjectMapperBuilder" />
+						</property>
+						<property name="targetMethod" value="propertyNamingStrategy" />
+						<property name="arguments">
+							<list>
+								<util:constant
+									static-field="com.fasterxml.jackson.databind.PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES" />
+							</list>
+						</property>
+					</bean>
+				</property>
+				<property name="targetMethod" value="build" />
+			</bean>
+		</constructor-arg>
+	</bean>
+</beans>

@@ -15,7 +15,11 @@
  */
 package me.joshua.arsenal4j.spring.dal.jpa.domain;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,10 +29,8 @@ import javax.persistence.Version;
 import org.springframework.data.domain.Persistable;
 
 import me.joshua.arsenal4j.java.commons.BaseObject;
+import me.joshua.arsenal4j.spring.dal.jpa.commons.ProductTypeConverter;
 
-/**
- *
- */
 @Entity
 public class Product extends BaseObject implements Persistable<Long> {
 
@@ -43,6 +45,14 @@ public class Product extends BaseObject implements Persistable<Long> {
 
 	@Column(name = "descn")
 	private String description;
+
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "front", column = @Column(name = "front") ),
+			@AttributeOverride(name = "back", column = @Column(name = "back") ) })
+	private ProductImages images;
+
+	@Convert(converter = ProductTypeConverter.class)
+	private ProductType type;
 
 	@Version
 	private Long version;
@@ -82,17 +92,26 @@ public class Product extends BaseObject implements Persistable<Long> {
 		this.description = description;
 	}
 
-	/**
-	 * @return the version
-	 */
+	public ProductImages getImages() {
+		return images;
+	}
+
+	public void setImages(ProductImages images) {
+		this.images = images;
+	}
+
+	public ProductType getType() {
+		return type;
+	}
+
+	public void setType(ProductType type) {
+		this.type = type;
+	}
+
 	public Long getVersion() {
 		return version;
 	}
 
-	/**
-	 * @param version
-	 *            the version to set
-	 */
 	public void setVersion(Long version) {
 		this.version = version;
 	}

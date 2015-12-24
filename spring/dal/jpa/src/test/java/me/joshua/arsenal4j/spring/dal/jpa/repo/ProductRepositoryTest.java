@@ -2,15 +2,24 @@ package me.joshua.arsenal4j.spring.dal.jpa.repo;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.ContextConfiguration;
 
 import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Product;
+import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductImages_;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductSpecs;
+import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductType;
+import me.joshua.arsenal4j.spring.dal.jpa.domain.Product_;
 
 @ContextConfiguration("classpath*:spring-data.xml")
 public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
@@ -44,5 +53,36 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 		Assert.assertEquals(0, list.size());
 		list = productRepository.findAll(ProductSpecs.search(null, null));
 		Assert.assertTrue(0 < list.size());
+	}
+
+	@Test
+	public void testConverter() {
+		Product p = productRepository.findOne(3L);
+		Assert.assertEquals(ProductType.CLOTHES, p.getType());
+	}
+
+	@Test
+	public void testLike() {
+		final String name = "%SW%";
+		List<Product> products = null;
+		products = productRepository.findByNameLikeAndDescriptionLike(name, "%iger%");
+		Assert.assertEquals(2, products.size());
+	}
+
+	@Test
+	public void testEmbedded() {
+		final String front = "front1";
+		Product p = null;
+		p = productRepository.findOneByImagesFront(front);
+		Assert.assertNotNull(p);
+		productRepository.findOne(new Specification<Product>() {
+
+			@Override
+			public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				// 多级嵌套的属性，需要链式的获取属性配置
+				return cb.equal(root.get(Product_.images).get(ProductImages_.front), front);
+			}
+		});
+		Assert.assertEquals(front, p.getImages().getFront());
 	}
 }

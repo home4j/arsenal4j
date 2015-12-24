@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author daonan.zhan
  *
  */
-public class BaseObject implements Serializable {
+public abstract class BaseObject implements Serializable {
 
 	private static final long serialVersionUID = 2286887506122904436L;
 

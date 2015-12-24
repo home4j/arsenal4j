@@ -25,13 +25,19 @@ public class MavenDependencyParserTest {
 
 	@Test
 	public void test() throws Throwable {
-		List<String> deps = new LinkedList<>();
+		List<MavenArtifact> deps = new LinkedList<>();
 		File pomDir = new File(Resources.getResource("pom").toURI());
 		for (File pom : FileUtils.listFiles(pomDir, TrueFileFilter.TRUE, null)) {
 			deps.addAll(parser.parse(pom));
 		}
 		Collections.sort(deps);
 		TestUtils.print(deps);
+
+		for (MavenArtifact artifact : deps) {
+			System.out.println("			<dependency>\r\n" + "				<groupId>" + artifact.getGroupId()
+					+ "</groupId>\r\n" + "				<artifactId>" + artifact.getArtifactId() + "</artifactId>\r\n"
+					+ "				<version>" + artifact.getVersion() + "</version>\r\n" + "			</dependency>");
+		}
 	}
 
 }

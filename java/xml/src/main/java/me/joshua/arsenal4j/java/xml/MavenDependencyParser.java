@@ -26,7 +26,7 @@ public class MavenDependencyParser {
 	private XPathExpressionLocal versionPath = new XPathExpressionLocal("./version/text()");
 	private XPathExpressionLocal typePath = new XPathExpressionLocal("./type/text()");
 
-	public List<String> parse(File pom) throws Throwable {
+	public List<MavenArtifact> parse(File pom) throws Throwable {
 		if (null == pom || !pom.exists()) {
 			return Collections.emptyList();
 		}
@@ -40,9 +40,9 @@ public class MavenDependencyParser {
 		return parse(doc);
 	}
 
-	private List<String> parse(Document doc) throws Throwable {
+	private List<MavenArtifact> parse(Document doc) throws Throwable {
 		NodeList nodes = (NodeList) dependencyPath.get().evaluate(doc, XPathConstants.NODESET);
-		List<String> deps = new LinkedList<String>();
+		List<MavenArtifact> deps = new LinkedList<MavenArtifact>();
 		for (int i = 0; i < nodes.getLength(); i++) {
 			Node node = nodes.item(i);
 			String groupId = (String) groupIdPath.get().evaluate(node, XPathConstants.STRING);
@@ -51,8 +51,7 @@ public class MavenDependencyParser {
 			version = StringUtils.replace(version, "${version.not.exist}", "999-not-exist");
 			String type = (String) typePath.get().evaluate(node, XPathConstants.STRING);
 
-			deps.add(String.format("%s:%s:%s:%s", groupId, artifactId, version,
-					StringUtils.isEmpty(type) ? "jar" : type));
+			deps.add(new MavenArtifact(groupId, artifactId, version, type));
 		}
 
 		return deps;
@@ -66,6 +65,7 @@ public class MavenDependencyParser {
 			this.path = path;
 		}
 
+		@Override
 		protected XPathExpression initialValue() {
 			XPathFactory pathFactory = XPathFactory.newInstance();
 			try {

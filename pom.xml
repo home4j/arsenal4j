@@ -12,13 +12,17 @@
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<deps.jackson.version>2.6.4</deps.jackson.version>
 		<deps.log4j2.version>2.4</deps.log4j2.version>
-		<deps.hibernate.version>5.0.4.Final</deps.hibernate.version>
+		<deps.hibernate.version>5.0.5.Final</deps.hibernate.version>
 		<deps.spring.version>4.2.3.RELEASE</deps.spring.version>
+		<deps.spring.data.rest.version>2.4.1.RELEASE</deps.spring.data.rest.version>
 	</properties>
 
 	<modules>
 		<module>java/commons</module>
+		<module>java/html</module>
+		<module>java/script</module>
 		<module>java/xml</module>
 		<module>spring</module>
 		<module>spring/aop</module>
@@ -27,6 +31,9 @@
 		<module>spring/dal/jpa</module>
 		<module>spring/dal/mybatis</module>
 		<module>spring/event</module>
+		<module>spring/mail</module>
+		<module>spring/rest</module>
+		<module>spring/template</module>
 	</modules>
 
 	<dependencies>
@@ -69,10 +76,48 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
+			<!-- Sub projects -->
+			<dependency>
+				<groupId>me.joshua.arsenal4j</groupId>
+				<artifactId>java.commons</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>me.joshua.arsenal4j</groupId>
+				<artifactId>spring.commons</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${deps.jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${deps.jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${deps.jackson.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>18.0</version>
+				<version>19.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.190</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>1.5.4</version>
 			</dependency>
 
 			<dependency>
@@ -92,17 +137,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>me.joshua.arsenal4j</groupId>
-				<artifactId>java.commons</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>me.joshua.arsenal4j</groupId>
-				<artifactId>spring.commons</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>javax.transaction</groupId>
 				<artifactId>javax.transaction-api</artifactId>
 				<version>1.2</version>
@@ -114,9 +148,9 @@
 			</dependency>
 
 			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>1.4.190</version>
+				<groupId>kr.pe.kwonnam.freemarker</groupId>
+				<artifactId>freemarker-template-inheritance</artifactId>
+				<version>0.4.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
@@ -155,6 +189,11 @@
 				<artifactId>aspectjweaver</artifactId>
 				<version>1.8.7</version>
 			</dependency>
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>2.3.23</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -176,6 +215,11 @@
 				<groupId>org.jooq</groupId>
 				<artifactId>joox</artifactId>
 				<version>1.3.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.8.3</version>
 			</dependency>
 
 
@@ -211,10 +255,26 @@
 				<version>${deps.spring.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${deps.spring.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
 				<version>1.9.0.RELEASE</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-rest-core</artifactId>
+				<version>${deps.spring.data.rest.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-rest-webmvc</artifactId>
+				<version>${deps.spring.data.rest.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-jdbc</artifactId>
@@ -232,10 +292,16 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${deps.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${deps.spring.version}</version>
 			</dependency>
 
+			<!-- Test -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>

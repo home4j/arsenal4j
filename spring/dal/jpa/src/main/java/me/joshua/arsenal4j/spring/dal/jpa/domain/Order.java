@@ -27,9 +27,6 @@ import me.joshua.arsenal4j.java.commons.BaseObject;
  * 在部分分库分表的情况下，所有的SQL都要传入分表字段，这对于查询比较好解决（每次加入该条件即可）。 但在更新时，Spring
  * Data是不会放入该字段的，所以此处用了一个比较取巧的方法，即把分表字段作为复合主键来配置，这样在更新的时候，都会默认带上该字段了。
  * 
- * <p>
- * 我们
- * 
  * @author daonan.zhan
  *
  */
