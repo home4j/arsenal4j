@@ -1,5 +1,6 @@
 package me.joshua.arsenal4j.spring.dal.jpa.repo;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -84,5 +85,19 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 			}
 		});
 		Assert.assertEquals(front, p.getImages().getFront());
+	}
+
+	@Test
+	public void testIn() {
+		List<Long> ids = new LinkedList<>();
+		ids.add(1L);
+		ids.add(2L);
+		List<Product> list = null;
+		list = productRepository.findByIdIn(ids);
+		Assert.assertEquals(2, list.size());
+
+		list = productRepository.findByIdInAndName(ids, "FI-SW-02");
+		Assert.assertEquals(1, list.size());
+
 	}
 }

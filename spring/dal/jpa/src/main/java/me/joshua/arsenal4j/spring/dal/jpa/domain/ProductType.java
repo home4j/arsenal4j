@@ -6,11 +6,11 @@ import java.util.Map;
 public enum ProductType {
 	TOY(1), CLOTHES(2);
 
-	private static Map<Integer, ProductType> TYPEMAP = new HashMap<>();
+	private static Map<Integer, ProductType> TYPE_MAP = new HashMap<>();
 
 	static {
 		for (ProductType type : ProductType.values()) {
-			TYPEMAP.put(type.getId(), type);
+			TYPE_MAP.put(type.getId(), type);
 		}
 	}
 
@@ -27,7 +27,7 @@ public enum ProductType {
 	public static ProductType getType(Integer id) {
 		ProductType type = null;
 		if (null != id) {
-			type = TYPEMAP.get(id);
+			type = TYPE_MAP.get(id);
 		}
 
 		if (null == type) {

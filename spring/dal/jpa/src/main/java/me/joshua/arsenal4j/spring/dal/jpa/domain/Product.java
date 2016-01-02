@@ -21,24 +21,13 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
 
-import org.springframework.data.domain.Persistable;
-
-import me.joshua.arsenal4j.java.commons.BaseObject;
 import me.joshua.arsenal4j.spring.dal.jpa.commons.ProductTypeConverter;
 
 @Entity
-public class Product extends BaseObject implements Persistable<Long> {
+public class Product extends BaseModel {
 
 	private static final long serialVersionUID = -7492639752670189553L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private String name;
@@ -54,9 +43,6 @@ public class Product extends BaseObject implements Persistable<Long> {
 	@Convert(converter = ProductTypeConverter.class)
 	private ProductType type;
 
-	@Version
-	private Long version;
-
 	public Product() {
 	}
 
@@ -65,15 +51,6 @@ public class Product extends BaseObject implements Persistable<Long> {
 		this.name = name;
 		this.description = description;
 		this.version = 0L;
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -106,19 +83,6 @@ public class Product extends BaseObject implements Persistable<Long> {
 
 	public void setType(ProductType type) {
 		this.type = type;
-	}
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
-
-	@Override
-	public boolean isNew() {
-		return null == getId();
 	}
 
 }

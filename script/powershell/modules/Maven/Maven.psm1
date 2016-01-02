@@ -8,6 +8,7 @@ New-Alias -Name mvnee -value mvnEclipse
 function mvnInstall {
 	mvn clean install '-Dmaven.test.skip' '-Denv=release'
 }
+New-Alias -Name mvni -value mvnInstall
 
 # Print maven dependency tree
 function mvnDependencyTree {

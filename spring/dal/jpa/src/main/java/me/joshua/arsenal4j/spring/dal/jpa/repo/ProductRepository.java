@@ -14,4 +14,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 	public List<Product> findByNameLikeAndDescriptionLike(String name, String description);
 
 	public Product findOneByImagesFront(String front);
+
+	public List<Product> findByIdIn(List<Long> ids);
+
+	public List<Product> findByIdInAndName(List<Long> ids, String name);
 }

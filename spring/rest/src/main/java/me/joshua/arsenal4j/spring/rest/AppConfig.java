@@ -34,6 +34,5 @@ public class AppConfig {
 		List<HttpMessageConverter<?>> converters = new LinkedList<>();
 		converters.add(mappingJackson2HttpMessageConverter);
 		return new RestTemplate(converters);
-
 	}
 }
