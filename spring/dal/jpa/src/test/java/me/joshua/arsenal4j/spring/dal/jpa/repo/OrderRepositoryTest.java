@@ -51,5 +51,4 @@ public class OrderRepositoryTest extends AbstractSpringJUnit4Tests {
 		System.out.println("Update the order, failed due to optimistic lock");
 		orderRepository.save(order);
 	}
-
 }

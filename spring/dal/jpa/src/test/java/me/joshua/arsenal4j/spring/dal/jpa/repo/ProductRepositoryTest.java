@@ -1,5 +1,6 @@
 package me.joshua.arsenal4j.spring.dal.jpa.repo;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.ContextConfiguration;
 
 import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
+import me.joshua.arsenal4j.spring.dal.jpa.domain.Order;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Product;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductImages_;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductSpecs;
@@ -99,5 +103,26 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 		list = productRepository.findByIdInAndName(ids, "FI-SW-02");
 		Assert.assertEquals(1, list.size());
 
+	}
+
+	@Test
+	public void testPerformance() {
+		int total = 1000000;
+		for (int i = 0; i < total; i++) {
+			Product product = new Product("test" + i, "desc" + i);
+			productRepository.save(product);
+		}
+		productRepository.flush();
+
+		StopWatch watch = new StopWatch();
+		watch.start();
+		for (int i = 0; i < total; i++) {
+			Product product = productRepository.findOneByName("test" + i);
+			System.out.println(product);
+		}
+		watch.stop();
+		System.out.println("Start: " + new Date(watch.getStartTime()));
+		System.out.println("Total: " + DurationFormatUtils.formatDurationHMS(watch.getTime()));
+		System.out.println("Per request: " + watch.getTime() / total);
 	}
 }

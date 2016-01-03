@@ -23,7 +23,6 @@
 		<module>demo</module>
 		<module>java/commons</module>
 		<module>java/core</module>
-		<module>java/demo</module>
 		<module>java/script</module>
 		<module>spring</module>
 		<module>spring/aop</module>
@@ -120,11 +119,6 @@
 				<artifactId>h2</artifactId>
 				<version>1.4.190</version>
 			</dependency>
-			<dependency>
-				<groupId>com.sun.mail</groupId>
-				<artifactId>javax.mail</artifactId>
-				<version>1.5.4</version>
-			</dependency>
 
 			<dependency>
 				<groupId>commons-beanutils</groupId>
@@ -142,6 +136,11 @@
 				<version>2.4</version>
 			</dependency>
 
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.7</version>
+			</dependency>
 			<dependency>
 				<groupId>javax.transaction</groupId>
 				<artifactId>javax.transaction-api</artifactId>

@@ -8,6 +8,9 @@ public class ProductTypeConverter implements AttributeConverter<ProductType, Int
 
 	@Override
 	public Integer convertToDatabaseColumn(ProductType attribute) {
+		if (null == attribute) {
+			return ProductType.TOY.getId();
+		}
 		return attribute.getId();
 	}
 
