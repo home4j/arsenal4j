@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.google.common.io.Resources;
 
-public class MavenDependencyParserTest {
+public class MavenDependencyParserTests {
 
 	private MavenDependencyParser parser;
 
@@ -28,7 +28,7 @@ public class MavenDependencyParserTest {
 		for (File pom : FileUtils.listFiles(pomDir, TrueFileFilter.TRUE, null)) {
 			deps.addAll(parser.parse(pom));
 		}
-		Assert.assertTrue(deps.size() < 0);
+		Assert.assertTrue(deps.size() > 0);
 	}
 
 }

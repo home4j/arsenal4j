@@ -118,7 +118,7 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 		Assert.assertEquals(2, list.size());
 
 		list = productRepository.findByIdInAndName(ids, "FI-SW-02");
-		Assert.assertEquals(2, list.size());
+		Assert.assertEquals(1, list.size());
 	}
 
 	@Test
