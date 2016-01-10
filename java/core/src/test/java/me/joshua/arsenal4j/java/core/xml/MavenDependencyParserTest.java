@@ -1,7 +1,6 @@
 package me.joshua.arsenal4j.java.core.xml;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,14 +28,7 @@ public class MavenDependencyParserTest {
 		for (File pom : FileUtils.listFiles(pomDir, TrueFileFilter.TRUE, null)) {
 			deps.addAll(parser.parse(pom));
 		}
-		Assert.assertTrue(deps.size() > 0);
-		Collections.sort(deps);
-
-		for (MavenArtifact artifact : deps) {
-			System.out.println("			<dependency>\r\n" + "				<groupId>" + artifact.getGroupId()
-					+ "</groupId>\r\n" + "				<artifactId>" + artifact.getArtifactId() + "</artifactId>\r\n"
-					+ "				<version>" + artifact.getVersion() + "</version>\r\n" + "			</dependency>");
-		}
+		Assert.assertTrue(deps.size() < 0);
 	}
 
 }
