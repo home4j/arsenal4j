@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -21,13 +20,8 @@ public class ProductSpecs {
 
 			@Override
 			public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				
-				List<Predicate> pList = new LinkedList<Predicate>();
 
-				List<String> names = new LinkedList<>();
-				if (CollectionUtils.isNotEmpty(names)) {
-					pList.add(cb.in(root.get(Product_.name)).in(names));
-				}
+				List<Predicate> pList = new LinkedList<Predicate>();
 
 				if (StringUtils.isNotEmpty(name)) {
 					pList.add(cb.like(root.get(Product_.name), appendWildcard(name)));

@@ -31,8 +31,9 @@ public class ImageTests {
 		int tagCount = 0;
 		for (Directory directory : metadata.getDirectories()) {
 			for (Tag tag : directory.getTags()) {
+				Assert.assertNotNull(tag.getTagName());
 				tagCount++;
-				System.out.println(tag);
+				// System.out.println(tag);
 			}
 		}
 		Assert.assertTrue(tagCount > 0);
@@ -42,6 +43,5 @@ public class ImageTests {
 	public void testPictureProperties() throws Throwable {
 		Date date = extractor.getTokenDate(image);
 		Assert.assertNotNull(date);
-		System.out.println(date);
 	}
 }
