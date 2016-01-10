@@ -45,6 +45,30 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 		Product product = new Product("test", "desc");
 		productRepository.save(product);
 		Assert.assertNotNull(product.getId());
+
+		Product p1;
+		p1 = productRepository.findOneByName(product.getName());
+		System.out.println("P1 just save: ");
+		System.out.println(p1);
+		p1.setDescription(p1.getDescription() + "1");
+		productRepository.save(p1);
+		p1 = productRepository.findOneByName(product.getName());
+		System.out.println("P1 description updated: ");
+		System.out.println(p1);
+		
+		Product p2 = new Product(p1.getName(), p1.getDescription() + "2");
+		p2.setId(p1.getId());
+		p2.setImages(p1.getImages());
+		p2.setType(p1.getType());
+		p2.setVersion(p1.getVersion());
+		System.out.println("P2 copy from P1:");
+		System.out.println(p2);
+		productRepository.save(p2);
+		System.out.println("P2 after updated:");
+		System.out.println(p2);
+		p2 = productRepository.findOneByName(product.getName());
+		System.out.println("P2 retrieved from DB:");
+		System.out.println(p2);
 	}
 
 	@Test
@@ -102,12 +126,11 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 
 		list = productRepository.findByIdInAndName(ids, "FI-SW-02");
 		Assert.assertEquals(1, list.size());
-
 	}
 
 	@Test
 	public void testPerformance() {
-		int total = 1000000;
+		int total = 1000;
 		for (int i = 0; i < total; i++) {
 			Product product = new Product("test" + i, "desc" + i);
 			productRepository.save(product);
