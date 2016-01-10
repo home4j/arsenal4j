@@ -1,7 +1,9 @@
 language: java
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
 install:
-  - mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B
+  - mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -q
 script:
-  - mvn test -fae -B
+  - mvn test -fae -B -q
+env:
+  global:
+    - TERM=dumb
