@@ -16,17 +16,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.ContextConfiguration;
 
-import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
+import me.joshua.arsenal4j.spring.dal.jpa.AbstractSpringDataTests;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Product;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductImages_;
-import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductSpecs;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.ProductType;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Product_;
+import me.joshua.arsenal4j.spring.dal.jpa.spec.ProductSpecBuilder;
 
-@ContextConfiguration("classpath*:spring-data.xml")
-public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
+public class ProductRepositoryTests extends AbstractSpringDataTests {
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -65,13 +63,13 @@ public class ProductRepositoryTest extends AbstractSpringJUnit4Tests {
 	@Test
 	public void testSpecification() {
 		List<Product> list = null;
-		list = productRepository.findAll(ProductSpecs.search(null, "fish"));
+		list = productRepository.findAll(ProductSpecBuilder.build(null, "fish"));
 		Assert.assertEquals(1, list.size());
-		list = productRepository.findAll(ProductSpecs.search("SW", null));
+		list = productRepository.findAll(ProductSpecBuilder.build("SW", null));
 		Assert.assertEquals(3, list.size());
-		list = productRepository.findAll(ProductSpecs.search("SW2", "fish"));
+		list = productRepository.findAll(ProductSpecBuilder.build("SW2", "fish"));
 		Assert.assertEquals(0, list.size());
-		list = productRepository.findAll(ProductSpecs.search(null, null));
+		list = productRepository.findAll(ProductSpecBuilder.build(null, null));
 		Assert.assertTrue(0 < list.size());
 		list = productRepository.findAll((Specification<Product>) null);
 		Assert.assertTrue(0 < list.size());

@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.spring.dal.jpa.domain;
+package me.joshua.arsenal4j.spring.dal.jpa.spec;
 
 import static me.joshua.arsenal4j.spring.dal.jpa.commons.SpecificationUtils.and;
 import static me.joshua.arsenal4j.spring.dal.jpa.commons.SpecificationUtils.appendWildcard;
@@ -14,8 +14,11 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
-public class ProductSpecs {
-	public static Specification<Product> search(final String name, final String description) {
+import me.joshua.arsenal4j.spring.dal.jpa.domain.Product;
+import me.joshua.arsenal4j.spring.dal.jpa.domain.Product_;
+
+public class ProductSpecBuilder {
+	public static Specification<Product> build(final String name, final String description) {
 		return new Specification<Product>() {
 
 			@Override

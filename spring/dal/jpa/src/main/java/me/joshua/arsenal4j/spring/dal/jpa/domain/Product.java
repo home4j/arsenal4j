@@ -15,74 +15,18 @@
  */
 package me.joshua.arsenal4j.spring.dal.jpa.domain;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
-import me.joshua.arsenal4j.spring.dal.jpa.commons.ProductTypeConverter;
-
 @Entity
-public class Product extends BaseModel {
+public class Product extends ProductBase {
 
-	private static final long serialVersionUID = -7492639752670189553L;
-
-	@Column(nullable = false, unique = true)
-	private String name;
-
-	@Column(name = "descn")
-	private String description;
-
-	@Embedded
-	@AttributeOverrides({ @AttributeOverride(name = "front", column = @Column(name = "front") ),
-			@AttributeOverride(name = "back", column = @Column(name = "back") ) })
-	private ProductImages images;
-
-	@Convert(converter = ProductTypeConverter.class)
-	private ProductType type;
+	private static final long serialVersionUID = 812954650844690023L;
 
 	public Product() {
+		super();
 	}
 
 	public Product(String name, String description) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.version = 0L;
+		super(name, description);
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ProductImages getImages() {
-		return images;
-	}
-
-	public void setImages(ProductImages images) {
-		this.images = images;
-	}
-
-	public ProductType getType() {
-		return type;
-	}
-
-	public void setType(ProductType type) {
-		this.type = type;
-	}
-
 }

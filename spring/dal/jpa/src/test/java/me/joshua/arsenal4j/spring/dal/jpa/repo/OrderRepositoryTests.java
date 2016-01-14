@@ -4,13 +4,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.test.context.ContextConfiguration;
 
-import me.joshua.arsenal4j.spring.commons.utils.AbstractSpringJUnit4Tests;
+import me.joshua.arsenal4j.spring.dal.jpa.AbstractSpringDataTests;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Order;
 
-@ContextConfiguration("classpath*:spring-data.xml")
-public class OrderRepositoryTest extends AbstractSpringJUnit4Tests {
+public class OrderRepositoryTests extends AbstractSpringDataTests {
 
 	@Autowired
 	private OrderRepository orderRepository;
