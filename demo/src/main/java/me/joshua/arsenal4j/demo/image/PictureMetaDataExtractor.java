@@ -2,6 +2,7 @@ package me.joshua.arsenal4j.demo.image;
 
 import java.io.File;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
@@ -27,6 +28,6 @@ public class PictureMetaDataExtractor {
 		}
 
 		Directory directory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-		return directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+		return directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL, TimeZone.getTimeZone("GMT+8"));
 	}
 }

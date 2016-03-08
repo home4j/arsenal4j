@@ -14,7 +14,7 @@ import org.junit.Test;
  * 
  * @author daonan.zhan
  */
-public class JsoupTest {
+public class JsoupTests {
 
 	private FastDateFormat POST_TIME_FORMAT = FastDateFormat.getInstance("yyyy-M-d HH:mm");
 

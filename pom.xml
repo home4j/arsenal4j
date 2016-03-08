@@ -12,7 +12,7 @@
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<deps.jackson.version>2.6.4</deps.jackson.version>
+		<deps.jackson.version>2.7.0</deps.jackson.version>
 		<deps.log4j2.version>2.4</deps.log4j2.version>
 		<deps.hibernate.version>5.0.6.Final</deps.hibernate.version>
 		<deps.spring.version>4.2.3.RELEASE</deps.spring.version>
@@ -187,6 +187,11 @@
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>${deps.log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>3.11</version>
 			</dependency>
 
 			<dependency>

@@ -7,4 +7,5 @@
 
 	<context:component-scan base-package="me.joshua.arsenal4j.spring.commons" />
 
+	<alias name="" alias=""/>
 </beans>

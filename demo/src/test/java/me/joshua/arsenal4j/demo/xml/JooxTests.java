@@ -13,7 +13,7 @@ import com.google.common.io.Resources;
  * 
  * @author daonan.zhan
  */
-public class JooxTest {
+public class JooxTests {
 
 	@Test
 	public void test() throws Throwable {

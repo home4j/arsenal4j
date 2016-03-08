@@ -17,7 +17,7 @@ package me.joshua.arsenal4j.spring.dal.jpa.domain;
 
 import javax.persistence.Entity;
 
-@Entity
+@Entity(name = "product")
 public class Product extends ProductBase {
 
 	private static final long serialVersionUID = 812954650844690023L;

@@ -7,6 +7,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
 import me.joshua.arsenal4j.spring.dal.jpa.AbstractSpringDataTests;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Order;
+import me.joshua.arsenal4j.spring.dal.jpa.spec.OrderSpecBuilder;
 
 public class OrderRepositoryTests extends AbstractSpringDataTests {
 
@@ -16,7 +17,6 @@ public class OrderRepositoryTests extends AbstractSpringDataTests {
 	@Test
 	public void testVersion() {
 		Order order = new Order(2L, "joshua", "Hello joshua");
-
 		System.out.println("Create a new order, before save");
 		System.out.println(order);
 		orderRepository.save(order); // 新建时，version会被自动设置
@@ -30,6 +30,12 @@ public class OrderRepositoryTests extends AbstractSpringDataTests {
 
 		order = orderRepository.findByUserId(order.getUserId());
 		Assert.assertEquals(new Long(1), order.getVersion());
+	}
+
+	@Test
+	public void testJoin() {
+		Order o = orderRepository.findOne(OrderSpecBuilder.build("join_name"));
+		System.out.println(o);
 	}
 
 	@Test(expected = ObjectOptimisticLockingFailureException.class)

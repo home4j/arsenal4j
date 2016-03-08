@@ -15,8 +15,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 /**
  * 通过配置对比可以看出来，简洁很多
  * 
- * @author daonan.zhan
- * {@link spring-rest.xml}
+ * @author daonan.zhan {@link spring-rest.xml}
  */
 @Configuration
 public class AppConfig {
@@ -25,7 +24,7 @@ public class AppConfig {
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
 		new Jackson2ObjectMapperBuilder();
 		Jackson2ObjectMapperBuilder mapperBuilder = Jackson2ObjectMapperBuilder.json()
-				.propertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+		        .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		return new MappingJackson2HttpMessageConverter(mapperBuilder.build());
 	}
 

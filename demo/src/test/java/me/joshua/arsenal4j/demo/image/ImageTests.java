@@ -33,7 +33,7 @@ public class ImageTests {
 			for (Tag tag : directory.getTags()) {
 				Assert.assertNotNull(tag.getTagName());
 				tagCount++;
-				// System.out.println(tag);
+				System.out.println(tag);
 			}
 		}
 		Assert.assertTrue(tagCount > 0);

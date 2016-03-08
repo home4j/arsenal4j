@@ -18,6 +18,7 @@ import me.joshua.arsenal4j.spring.dal.jpa.domain.Product;
 import me.joshua.arsenal4j.spring.dal.jpa.domain.Product_;
 
 public class ProductSpecBuilder {
+	
 	public static Specification<Product> build(final String name, final String description) {
 		return new Specification<Product>() {
 
