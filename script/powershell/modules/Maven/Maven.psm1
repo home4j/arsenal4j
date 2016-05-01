@@ -22,6 +22,12 @@ function mvnClean {
 }
 New-Alias -Name mvnc -value mvnClean
 
+# Test maven project and fail the build afterwards
+function mvnTest {
+	mvn test -fae
+}
+New-Alias -Name mvnt -value mvnTest
+
 $script:MAVEN_REPO = "$Env:USERPROFILE\.m2"
 # Clean maven local repository useless maven configuration.
 function mvnCleanRepository {
