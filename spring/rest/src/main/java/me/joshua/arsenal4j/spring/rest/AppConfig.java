@@ -24,7 +24,7 @@ public class AppConfig {
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
 		new Jackson2ObjectMapperBuilder();
 		Jackson2ObjectMapperBuilder mapperBuilder = Jackson2ObjectMapperBuilder.json()
-		        .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+		        .propertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 		return new MappingJackson2HttpMessageConverter(mapperBuilder.build());
 	}
 

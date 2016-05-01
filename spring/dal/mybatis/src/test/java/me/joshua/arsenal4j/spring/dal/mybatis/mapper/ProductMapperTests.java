@@ -16,7 +16,7 @@ import me.joshua.arsenal4j.spring.dal.mybatis.commons.PageRequest;
 import me.joshua.arsenal4j.spring.dal.mybatis.domain.Product;
 
 @ContextConfiguration("classpath*:spring-mybatis.xml")
-public class ProductMapperTest extends AbstractSpringJUnit4Tests {
+public class ProductMapperTests extends AbstractSpringJUnit4Tests {
 
 	@Autowired
 	private ProductMapper productMapper;

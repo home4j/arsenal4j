@@ -21,7 +21,7 @@ public class SheetTests {
 
 	@Test
 	public void test() throws Throwable {
-		Workbook wb = WorkbookFactory.create(new File(Resources.getResource("poi/contacts.xlsx").getFile()));
+		Workbook wb = WorkbookFactory.create(new File(Resources.getResource("excel/contacts.xlsx").getFile()));
 		Sheet sheet = wb.getSheet("contacts");
 		for (Row row : sheet) {
 			for (int i = 0; i < row.getLastCellNum(); i++) {

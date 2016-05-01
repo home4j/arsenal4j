@@ -12,7 +12,7 @@
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<deps.jackson.version>2.7.0</deps.jackson.version>
+		<deps.jackson.version>2.6.5</deps.jackson.version>
 		<deps.log4j2.version>2.4</deps.log4j2.version>
 		<deps.hibernate.version>5.0.6.Final</deps.hibernate.version>
 		<deps.spring.version>4.2.3.RELEASE</deps.spring.version>
@@ -231,6 +231,16 @@
 				<artifactId>jsoup</artifactId>
 				<version>1.8.3</version>
 			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls</artifactId>
+				<version>2.2.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jxls</groupId>
+				<artifactId>jxls-poi</artifactId>
+				<version>1.0.8</version>
+			</dependency>
 
 
 			<dependency>
@@ -348,6 +358,17 @@
 					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<!-- Maven的测试，默认不包括Tests结尾的单元测试类，所以需要额外配置 -->
+						<!-- 参考：http://maven.apache.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html -->
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -355,6 +376,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.19.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.bsc.maven</groupId>

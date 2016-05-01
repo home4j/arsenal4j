@@ -16,7 +16,7 @@ public class OrderRepositoryTests extends AbstractSpringDataTests {
 
 	@Test
 	public void testVersion() {
-		Order order = new Order(2L, "joshua", "Hello joshua");
+		Order order = new Order(3L, "joshua", "Hello joshua");
 		System.out.println("Create a new order, before save");
 		System.out.println(order);
 		orderRepository.save(order); // 新建时，version会被自动设置

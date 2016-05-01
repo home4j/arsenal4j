@@ -3,6 +3,7 @@ package me.joshua.arsenal4j.spring.rest;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
@@ -26,23 +27,21 @@ public class RestTemplateTests extends AbstractSpringRestTests {
 	@Test
 	public void testPosts() {
 		Post[] posts = restTemplate
-				.getForObject("http://home4j.duapp.com/wp-json/wp/v2/posts?filter[category_name]=java", Post[].class);
+		        .getForObject("http://home4j.duapp.com/wp-json/wp/v2/posts?filter[category_name]=java", Post[].class);
 		for (Post post : posts) {
 			System.out.println(post.getTitle());
 		}
 	}
 
 	@Test
-	public void testUri() {
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://www.baidu.com");
+	public void testFilter() {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://home4j.duapp.com/wp-json/wp/v2/posts");
 		Map<String, String> filterMap = new HashMap<>();
-		filterMap.put("type", "post");
-		filterMap.put("category", "it");
+		filterMap.put("category_name", "java");
 		UriQueryParamUtils.addMapParam(builder, "filter", filterMap);
-		boolean encoded = true;
-		// 使用Map的参数，则不能进行编码，否则会抛异常
-		// encoded = true;
-		UriComponents uriComponents = builder.build(encoded);
-		System.out.println(uriComponents);
+		UriComponents uriComponents = builder.build();
+		Post[] posts = restTemplate.getForObject(uriComponents.toUri(), Post[].class);
+		Assert.assertTrue(0 < posts.length);
 	}
+
 }
