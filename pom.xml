@@ -20,9 +20,8 @@
 	</properties>
 
 	<modules>
-		<module>demo</module>
 		<module>java/commons</module>
-		<module>java/core</module>
+		<module>java/demo</module>
 		<module>java/script</module>
 		<module>spring</module>
 		<module>spring/aop</module>
