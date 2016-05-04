@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+	<worksheet name="employees">
+		<section startRow="0" endRow="0">
+			<!-- 必须保留一个section用于跳过标题 -->
+		</section>
+		<loop startRow="1" endRow="1" items="employees" var="employee"
+			varType="me.joshua.arsenal4j.java.demo.office.excel.Employee">
+			<section startRow="0" endRow="0">
+				<mapping row="0" col="0">employee.name</mapping>
+				<mapping row="0" col="1">employee.company</mapping>
+				<!--  -->
+				<mapping row="0" col="2" nullAllowed="true">employee.birthday
+				</mapping>
+				<mapping row="0" col="3" nullAllowed="true">employee.age</mapping>
+				<mapping row="0" col="4">employee.salary</mapping>
+				<mapping row="0" col="5" nullAllowed="true">employee.bonus
+				</mapping>
+			</section>
+			<loopbreakcondition>
+				<rowcheck offset="0">
+					<!-- 空行，直接结束 -->
+				</rowcheck>
+			</loopbreakcondition>
+		</loop>
+	</worksheet>
+</workbook>
