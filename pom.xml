@@ -248,7 +248,7 @@
 			<dependency>
 				<groupId>org.jxls</groupId>
 				<artifactId>jxls-reader</artifactId>
-				<version>2.0.2</version>
+				<version>2.0.3-SNAPSHOT</version>
 				<exclusions>
 				    <!-- 因为使用了<classifier>with-deps</classifier>的依赖，所以需要移除 -->
 					<exclusion>

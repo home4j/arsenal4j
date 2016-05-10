@@ -1,0 +1,3 @@
+birthday=me.joshua.arsenal4j.java.demo.jxls.convertor.BirthdayConvertor
+bigDecimalMoney=me.joshua.arsenal4j.java.demo.jxls.convertor.BigDecimalMoneyConvertor
+longMoney=me.joshua.arsenal4j.java.demo.jxls.convertor.LongMoneyConvertor

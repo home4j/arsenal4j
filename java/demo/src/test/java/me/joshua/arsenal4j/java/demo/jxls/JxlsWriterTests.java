@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.java.demo.office.excel;
+package me.joshua.arsenal4j.java.demo.jxls;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +15,8 @@ import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 
 import com.google.common.io.Resources;
+
+import me.joshua.arsenal4j.java.demo.model.Employee;
 
 public class JxlsWriterTests {
 

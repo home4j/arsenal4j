@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.java.demo.office.excel;
+package me.joshua.arsenal4j.java.demo.poi;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -19,6 +19,7 @@ import org.junit.Test;
 import com.google.common.io.Resources;
 
 import me.joshua.arsenal4j.java.commons.TestUtils;
+import me.joshua.arsenal4j.java.demo.model.Employee;
 
 /**
  * 表格测试

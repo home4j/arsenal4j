@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.java.demo.office.excel;
+package me.joshua.arsenal4j.java.demo.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

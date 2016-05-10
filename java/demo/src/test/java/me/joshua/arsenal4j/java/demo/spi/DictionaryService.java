@@ -38,13 +38,21 @@ import java.util.ServiceLoader;
 public class DictionaryService {
 
 	private static DictionaryService service;
-	private ServiceLoader<Dictionary> loader;
+	private ThreadLocal<ServiceLoader<Dictionary>> localLoader;
 
 	private DictionaryService() {
-		loader = ServiceLoader.load(Dictionary.class);
+		// ServiceLoader实例线程不安全
+		localLoader = new ThreadLocal<ServiceLoader<Dictionary>>() {
+			@Override
+			protected ServiceLoader<Dictionary> initialValue() {
+				// 加载服务
+				return ServiceLoader.load(Dictionary.class);
+			}
+		};
 	}
 
 	public static synchronized DictionaryService getInstance() {
+		// 单例，便于获取使用
 		if (service == null) {
 			service = new DictionaryService();
 		}
@@ -55,7 +63,8 @@ public class DictionaryService {
 		String definition = null;
 
 		try {
-			Iterator<Dictionary> dictionaries = loader.iterator();
+			// 遍历并调用服务
+			Iterator<Dictionary> dictionaries = localLoader.get().iterator();
 			while (definition == null && dictionaries.hasNext()) {
 				Dictionary d = dictionaries.next();
 				definition = d.getDefinition(word);

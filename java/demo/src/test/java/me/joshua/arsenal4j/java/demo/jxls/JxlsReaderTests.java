@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.java.demo.office.excel;
+package me.joshua.arsenal4j.java.demo.jxls;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import org.jxls.reader.XLSReader;
 import com.google.common.io.Resources;
 
 import me.joshua.arsenal4j.java.commons.TestUtils;
+import me.joshua.arsenal4j.java.demo.model.Employee;
 
 public class JxlsReaderTests {
 
