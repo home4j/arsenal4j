@@ -15,7 +15,7 @@
 		<deps.jackson.version>2.6.5</deps.jackson.version>
 		<deps.log4j2.version>2.4</deps.log4j2.version>
 		<deps.hibernate.version>5.0.6.Final</deps.hibernate.version>
-		<deps.spring.version>4.2.5.RELEASE</deps.spring.version>
+		<deps.spring.version>4.2.6.RELEASE</deps.spring.version>
 		<deps.spring.data.rest.version>2.4.1.RELEASE</deps.spring.data.rest.version>
 	</properties>
 
