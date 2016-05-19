@@ -10,8 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import me.joshua.arsenal4j.spring.rest.wordpress.Post;
-import me.joshua.arsenal4j.spring.rest.wordpress.User;
+import me.joshua.arsenal4j.spring.rest.wordpress.model.Post;
+import me.joshua.arsenal4j.spring.rest.wordpress.model.User;
 
 public class RestTemplateTests extends AbstractSpringRestTests {
 

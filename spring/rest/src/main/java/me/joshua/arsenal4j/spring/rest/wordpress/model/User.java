@@ -1,4 +1,4 @@
-package me.joshua.arsenal4j.spring.rest.wordpress;
+package me.joshua.arsenal4j.spring.rest.wordpress.model;
 
 import java.util.Map;
 
