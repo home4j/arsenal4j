@@ -16,6 +16,7 @@
 package me.joshua.arsenal4j.java.demo.extension;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -23,6 +24,7 @@ import static org.junit.Assert.fail;
 import org.hamcrest.core.StringContains;
 import org.junit.Test;
 
+import me.joshua.arsenal4j.java.demo.extension.generic.BlankDefaultExt;
 import me.joshua.arsenal4j.java.demo.extension.generic.GenericExt;
 import me.joshua.arsenal4j.java.demo.extension.generic.IntegerExt;
 import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExt;
@@ -30,9 +32,6 @@ import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExtImpl1;
 import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExtImpl2;
 import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExtImpl3;
 
-/**
- * 
- */
 public class ExtensionLoaderTests {
 
 	private ExtensionLoader<SimpleExt> simpleLoader = ExtensionLoader.getExtensionLoader(SimpleExt.class);
@@ -48,24 +47,29 @@ public class ExtensionLoaderTests {
 		assertEquals(3, simpleLoader.getLoadedExtensions().size());
 	}
 
-	@Test
+	@Test(expected = ClassCastException.class)
 	public void testGeneric() {
 		@SuppressWarnings("rawtypes")
 		ExtensionLoader<GenericExt> genericLoader = ExtensionLoader.getExtensionLoader(GenericExt.class);
 		IntegerExt ext = genericLoader.getExtension("integer");
+		assertNotNull(ext);
 		ext = genericLoader.getExtension("long");
-		System.out.println(ext);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testBlankDefault() {
+		ExtensionLoader.getExtensionLoader(BlankDefaultExt.class);
 	}
 
 	@Test
 	public void testDefault() {
-		assertEquals("impl1", simpleLoader.getDefaultExtensionName());
+		assertEquals("impl1", simpleLoader.getDefaultName());
 		SimpleExt defaultExt = simpleLoader.getDefaultExtension();
 		assertTrue(defaultExt instanceof SimpleExtImpl1);
 	}
 
 	@Test
-	public void test_getExtensionLoader_Null() throws Exception {
+	public void testGetExtensionLoader_Null() throws Exception {
 		try {
 			ExtensionLoader.getExtensionLoader(null);
 			fail();
@@ -75,7 +79,7 @@ public class ExtensionLoaderTests {
 	}
 
 	@Test
-	public void test_getExtensionLoader_NotInterface() throws Exception {
+	public void testGetExtensionLoader_NotInterface() throws Exception {
 		try {
 			ExtensionLoader.getExtensionLoader(ExtensionLoaderTests.class);
 			fail();

@@ -15,14 +15,14 @@
  */
 package me.joshua.arsenal4j.java.demo.extension.simple;
 
-import me.joshua.arsenal4j.java.demo.extension.Extension;
+import me.joshua.arsenal4j.java.demo.extension.Default;
 
 /**
  * 简单扩展点。 没有Wrapper。
  *
  * @author ding.lid
  */
-@Extension("impl1")
+@Default("impl1")
 public interface SimpleExt {
 	String echo(String s);
 

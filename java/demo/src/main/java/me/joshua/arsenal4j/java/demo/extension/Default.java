@@ -24,16 +24,14 @@ import java.lang.annotation.Target;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 扩展点接口的标识。
+ * 默认扩展点配置注解
  *
- * @author william.liangf
- * @author ding.lid
- * @export
+ * @author <a href=”mailto:daonan.zhan@gmail.com”>Joshua Zhan</a>
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
-public @interface Extension {
+public @interface Default {
 
 	/**
 	 * 缺省扩展点名。

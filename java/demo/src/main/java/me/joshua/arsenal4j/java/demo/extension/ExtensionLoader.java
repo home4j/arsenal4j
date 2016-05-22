@@ -31,14 +31,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 扩展点加载&获取。
+ * 扩展点加载&获取服务，
  * 
  * @see <a href=
  *      "http://java.sun.com/j2se/1.5.0/docs/guide/jar/jar.html#Service%20Provider">
  *      JDK5.0的自动发现机制实现</a>
  * 
- * @author william.liangf
- * @author ding.lid
+ * @author <a href=”mailto:daonan.zhan@gmail.com”>Joshua Zhan</a>
  */
 public class ExtensionLoader<T> {
 
@@ -50,9 +49,13 @@ public class ExtensionLoader<T> {
 	private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<Class<?>, Object>();
 
 	private final Class<?> type;
+
+	/**
+	 * 默认扩展的名称
+	 */
 	private final String defaultName;
 
-	private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<Map<String, Class<?>>>();
+	private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
 	private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<String, Holder<Object>>();
 
 	@SuppressWarnings("unchecked")
@@ -62,32 +65,38 @@ public class ExtensionLoader<T> {
 		if (!type.isInterface()) {
 			throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
 		}
-		if (!type.isAnnotationPresent(Extension.class)) {
-			throw new IllegalArgumentException("Extension type(" + type + ") is not extension, because WITHOUT @"
-			        + Extension.class.getSimpleName() + " Annotation!");
-		}
 
 		ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
 		if (loader == null) {
-			Extension anno = type.getAnnotation(Extension.class);
-			String defaultName = anno.value();
+			Default anno = type.getAnnotation(Default.class);
+			String defaultName = null == anno ? null : anno.value();
 			EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<T>(type, defaultName));
 			loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
 		}
 		return loader;
 	}
 
+	/**
+	 * 构造ExtensionLoader
+	 * 
+	 * @param type
+	 * @param defaultName
+	 *            可以为空表示没有默认扩展，但不允许为空字符串
+	 */
 	private ExtensionLoader(Class<?> type, String defaultName) {
 		this.type = type;
-		this.defaultName = defaultName;
+		if (null != defaultName && StringUtils.isBlank(defaultName)) {
+			throw new IllegalArgumentException("Default extension name for type(" + type + ") is blank!");
+		}
+		this.defaultName = StringUtils.trimToNull(defaultName);
 	}
 
 	/**
-	 * 返回默认的扩展点实例，通过{@link Extension}来配置。
+	 * 返回默认的扩展点实例，通过{@link Default}来配置。
 	 */
 	public T getDefaultExtension() {
-		if (StringUtils.isBlank(defaultName)) {
-			return null;
+		if (null == defaultName) {
+			throw new IllegalStateException("No default extension for " + type.getName());
 		}
 
 		return getExtension(defaultName);
@@ -96,7 +105,7 @@ public class ExtensionLoader<T> {
 	/**
 	 * 返回缺省的扩展点名。
 	 */
-	public String getDefaultExtensionName() {
+	public String getDefaultName() {
 		return defaultName;
 	}
 
@@ -112,10 +121,14 @@ public class ExtensionLoader<T> {
 	}
 
 	/**
-	 * 返回指定名字的扩展。如果指定名字的扩展不存在，则抛异常 {@link IllegalStateException}.
+	 * 返回指定名字的扩展。
 	 *
 	 * @param name
 	 * @return
+	 * @exception ClassCastException
+	 *                如果泛型参数的类型S和实际的扩展类不匹配，则抛异常
+	 * @exception IllegalStateException
+	 *                如果指定名字的扩展不存在，则抛异常
 	 */
 	@SuppressWarnings("unchecked")
 	public <S extends T> S getExtension(String name) {
@@ -140,8 +153,14 @@ public class ExtensionLoader<T> {
 		return (S) instance;
 	}
 
+	/**
+	 * 判断某个名字的扩展是否存在
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public boolean hasExtension(String name) {
-		if (name == null || name.length() == 0)
+		if (StringUtils.isBlank(name))
 			throw new IllegalArgumentException("Extension name == null");
 		try {
 			return getExtensionClass(name) != null;
@@ -150,6 +169,10 @@ public class ExtensionLoader<T> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Set<String> getSupportedExtensions() {
 		Map<String, Class<?>> clazzes = getExtensionClasses();
 		return Collections.unmodifiableSet(new TreeSet<String>(clazzes.keySet()));
