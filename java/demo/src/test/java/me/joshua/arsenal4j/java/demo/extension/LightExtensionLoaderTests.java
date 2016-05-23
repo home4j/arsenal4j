@@ -1,18 +1,3 @@
-/*
- * Copyright 1999-2011 Alibaba Group.
- *  
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *  
- *      http://www.apache.org/licenses/LICENSE-2.0
- *  
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package me.joshua.arsenal4j.java.demo.extension;
 
 import static org.junit.Assert.assertEquals;
@@ -32,9 +17,9 @@ import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExtImpl1;
 import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExtImpl2;
 import me.joshua.arsenal4j.java.demo.extension.simple.SimpleExtImpl3;
 
-public class ExtensionLoaderTests {
+public class LightExtensionLoaderTests {
 
-	private ExtensionLoader<SimpleExt> simpleLoader = ExtensionLoader.getExtensionLoader(SimpleExt.class);
+	private LightExtensionLoader<SimpleExt> simpleLoader = LightExtensionLoader.getExtensionLoader(SimpleExt.class);
 
 	@Test
 	public void test() {
@@ -50,7 +35,7 @@ public class ExtensionLoaderTests {
 	@Test(expected = ClassCastException.class)
 	public void testGeneric() {
 		@SuppressWarnings("rawtypes")
-		ExtensionLoader<GenericExt> genericLoader = ExtensionLoader.getExtensionLoader(GenericExt.class);
+		LightExtensionLoader<GenericExt> genericLoader = LightExtensionLoader.getExtensionLoader(GenericExt.class);
 		IntegerExt ext = genericLoader.getExtension("integer");
 		assertNotNull(ext);
 		ext = genericLoader.getExtension("long");
@@ -58,7 +43,7 @@ public class ExtensionLoaderTests {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testBlankDefault() {
-		ExtensionLoader.getExtensionLoader(BlankDefaultExt.class);
+		LightExtensionLoader.getExtensionLoader(BlankDefaultExt.class);
 	}
 
 	@Test
@@ -71,7 +56,7 @@ public class ExtensionLoaderTests {
 	@Test
 	public void testGetExtensionLoader_Null() throws Exception {
 		try {
-			ExtensionLoader.getExtensionLoader(null);
+			LightExtensionLoader.getExtensionLoader(null);
 			fail();
 		} catch (IllegalArgumentException expected) {
 			assertThat(expected.getMessage(), StringContains.containsString("Extension type == null"));
@@ -81,11 +66,11 @@ public class ExtensionLoaderTests {
 	@Test
 	public void testGetExtensionLoader_NotInterface() throws Exception {
 		try {
-			ExtensionLoader.getExtensionLoader(ExtensionLoaderTests.class);
+			LightExtensionLoader.getExtensionLoader(LightExtensionLoaderTests.class);
 			fail();
 		} catch (IllegalArgumentException expected) {
 			assertThat(expected.getMessage(), StringContains.containsString(
-			        "Extension type(class me.joshua.arsenal4j.java.demo.extension.ExtensionLoaderTests) is not interface!"));
+			        "Extension type(class me.joshua.arsenal4j.java.demo.extension.LightExtensionLoaderTests) is not interface!"));
 		}
 	}
 }

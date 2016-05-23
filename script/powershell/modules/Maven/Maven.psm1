@@ -51,13 +51,21 @@ function mvnConfig ($src, $dest = $MAVEN_SETTINGS) {
 
 # 还原原始的Maven配置，“o” = “Original”
 function mvnOriginal {
-	mvnConfig "$PSScriptRoot\[Original]settings.xml"
+	if (Test-Path -LiteralPath "$Env:USERPROFILE\.m2\[Original]settings.xml") {
+		mvnConfig "$Env:USERPROFILE\.m2\[Original]settings.xml"
+	} else {
+		mvnConfig "$PSScriptRoot\[Original]settings.xml"
+	}
 }
 New-Alias -Name mvno -value mvnOriginal
 
 # 设置成公共的Maven仓库配置，使用OSChina的镜像，“p” = “Public”
 function mvnPublic {
-	mvnConfig "$PSScriptRoot\[OSC]settings.xml"
+	if (Test-Path -LiteralPath "$Env:USERPROFILE\.m2\[OSC]settings.xml") {
+		mvnConfig "$Env:USERPROFILE\.m2\[OSC]settings.xml"
+	} else {
+		mvnConfig "$PSScriptRoot\[OSC]settings.xml"
+	}
 }
 New-Alias -Name mvnp -value mvnPublic
 

@@ -1,18 +1,3 @@
-/*
- * Copyright 1999-2011 Alibaba Group.
- *  
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *  
- *      http://www.apache.org/licenses/LICENSE-2.0
- *  
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package me.joshua.arsenal4j.java.demo.extension;
 
 import java.io.BufferedReader;
@@ -31,21 +16,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 扩展点加载&获取服务，
+ * 扩展加载器，从Dubbo的扩展实现简化而来（<a
+ * href=”https://github.com/alibaba/dubbo/blob/master/dubbo-common/src/main/java
+ * /com/alibaba/dubbo/common/extension/ExtensionLoader.java”>com.alibaba.dubbo.
+ * common.extension.ExtensionLoader</a>）。
+ * <p>
+ * LightExt保留了ExtensionLoader中基于SPI的扩展，让SPI可以通过扩展实现的名字来直接获取扩展实例。
  * 
- * @see <a href=
- *      "http://java.sun.com/j2se/1.5.0/docs/guide/jar/jar.html#Service%20Provider">
- *      JDK5.0的自动发现机制实现</a>
  * 
  * @author <a href=”mailto:daonan.zhan@gmail.com”>Joshua Zhan</a>
  */
-public class ExtensionLoader<T> {
+public class LightExtensionLoader<T> {
 
-	private static final Logger logger = LoggerFactory.getLogger(ExtensionLoader.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LightExtensionLoader.class);
 
-	private static final String SERVICES_DIRECTORY = "META-INF/services/";
+	private static final String SERVICES_DIRECTORY = "META-INF/lightExt/";
 
-	private static final ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<Class<?>, ExtensionLoader<?>>();
+	private static final ConcurrentMap<Class<?>, LightExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<Class<?>, LightExtensionLoader<?>>();
 	private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<Class<?>, Object>();
 
 	private final Class<?> type;
@@ -59,19 +46,19 @@ public class ExtensionLoader<T> {
 	private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<String, Holder<Object>>();
 
 	@SuppressWarnings("unchecked")
-	public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
+	public static <T> LightExtensionLoader<T> getExtensionLoader(Class<T> type) {
 		if (type == null)
 			throw new IllegalArgumentException("Extension type == null");
 		if (!type.isInterface()) {
 			throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
 		}
 
-		ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
+		LightExtensionLoader<T> loader = (LightExtensionLoader<T>) EXTENSION_LOADERS.get(type);
 		if (loader == null) {
 			Default anno = type.getAnnotation(Default.class);
 			String defaultName = null == anno ? null : anno.value();
-			EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<T>(type, defaultName));
-			loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);
+			EXTENSION_LOADERS.putIfAbsent(type, new LightExtensionLoader<T>(type, defaultName));
+			loader = (LightExtensionLoader<T>) EXTENSION_LOADERS.get(type);
 		}
 		return loader;
 	}
@@ -83,7 +70,7 @@ public class ExtensionLoader<T> {
 	 * @param defaultName
 	 *            可以为空表示没有默认扩展，但不允许为空字符串
 	 */
-	private ExtensionLoader(Class<?> type, String defaultName) {
+	private LightExtensionLoader(Class<?> type, String defaultName) {
 		this.type = type;
 		if (null != defaultName && StringUtils.isBlank(defaultName)) {
 			throw new IllegalArgumentException("Default extension name for type(" + type + ") is blank!");
@@ -283,20 +270,20 @@ public class ExtensionLoader<T> {
 							reader.close();
 						}
 					} catch (Throwable t) {
-						logger.error("Exception when load extension class(interface: " + type + ", class file: " + url
+						LOGGER.error("Exception when load extension class(interface: " + type + ", class file: " + url
 						        + ") in " + url, t);
 					}
 				} // end of while urls
 			}
 		} catch (Throwable t) {
-			logger.error(
+			LOGGER.error(
 			        "Exception when load extension class(interface: " + type + ", description file: " + fileName + ").",
 			        t);
 		}
 	}
 
 	private static ClassLoader findClassLoader() {
-		return ExtensionLoader.class.getClassLoader();
+		return LightExtensionLoader.class.getClassLoader();
 	}
 
 	@Override
