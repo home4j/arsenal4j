@@ -31,6 +31,8 @@
 
 package me.joshua.arsenal4j.java.demo.spi;
 
+import org.apache.commons.lang3.StringUtils;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class DictionaryTests {
@@ -39,10 +41,10 @@ public class DictionaryTests {
 
 	@Test
 	public void test() {
-		System.out.println(lookup(dictionary, "book"));
-		System.out.println(lookup(dictionary, "editor"));
-		System.out.println(lookup(dictionary, "xml"));
-		System.out.println(lookup(dictionary, "REST"));
+		assertTrue(StringUtils.startsWith(lookup(dictionary, "book"), "book: a set of written"));
+		assertTrue(StringUtils.startsWith(lookup(dictionary, "editor"), "editor: a person who edits"));
+		assertTrue(StringUtils.startsWith(lookup(dictionary, "xml"), "xml: a document standard"));
+		assertTrue(StringUtils.startsWith(lookup(dictionary, "REST"), "REST: an architecture style"));
 	}
 
 	private String lookup(DictionaryService dictionary, String word) {
