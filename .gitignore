@@ -40,3 +40,4 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
+/script/js/webpack/.idea
